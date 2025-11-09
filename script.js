@@ -24,16 +24,25 @@ categoryButtons.forEach(button => {
 });
 
 // ===== Fetch Latest News =====
-async function fetchLatestNews(category) {
-  newsContainer.innerHTML = "<p>Loading latest news...</p>";
+export async function handler(event, context) {
+  const { category = "general", q = "" } = event.queryStringParameters;
+
+  const API_KEY = process.env.GNEWS_API_KEY;
+  const BASE_URL = "https://gnews.io/api/v4";
+
+  const url = q
+    ? `${BASE_URL}/search?q=${encodeURIComponent(q)}&lang=en&sortby=publishedAt&apikey=${API_KEY}`
+    : `${BASE_URL}/top-headlines?category=${category}&lang=en&country=us&sortby=publishedAt&apikey=${API_KEY}`;
+
   try {
-    const response = await fetch(
-      `${BASE_URL}/top-headlines?category=${category}&lang=en&country=us&sortby=publishedAt&page=${currentPage}&apikey=${API_KEY}`
-    );
+    const response = await fetch(url);
     const data = await response.json();
-    displayNews(data.articles);
-  } catch (error) {
-    newsContainer.innerHTML = "<p>❌ Failed to load news.</p>";
+    return {
+      statusCode: 200,
+      body: JSON.stringify(data),
+    };
+  } catch (err) {
+    return { statusCode: 500, body: JSON.stringify({ error: "Failed to fetch news" }) };
   }
 }
 
@@ -110,3 +119,4 @@ async function searchNews(query) {
 
 // ===== Auto Refresh Every 5 Minutes =====
 setInterval(() => fetchLatestNews(currentCategory), 5 * 60 * 1000);
+
