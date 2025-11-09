@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mini News Website</title>
+  <link rel="stylesheet" href="news.css" />
+</head>
+<body>
+  <!-- ===== HEADER ===== -->
+  <header class="main-header">
+    <h1>NEWSAPI</h1>
+
+    <div class="top-bar">
+      <input type="text" id="search-input" placeholder="Search news..." />
+      <button id="search-btn">Search</button>
+    </div>
+  </header>
+
+  <!-- ===== CATEGORY NAVIGATION ===== -->
+  <nav class="category-bar">
+    <button class="category" data-category="general">General</button>
+    <button class="category" data-category="technology">Technology</button>
+    <button class="category" data-category="business">Business</button>
+    <button class="category" data-category="sports">Sports</button>
+    <button class="category" data-category="entertainment">Entertainment</button>
+    <button class="category" data-category="science">Science</button>
+    <button class="category" data-category="health">Health</button>
+  </nav>
+
+  <!-- ===== NEWS SECTION ===== -->
+  <main id="news-container"></main>
+
+  <!-- ===== LOAD MORE BUTTON ===== -->
+  <button id="load-more-btn">Load More</button>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <p>Powered by NEWSAPI | Auto-refresh every 5 minutes 🔄</p>
+  </footer>
+
+  <script src="news.js"></script>
+</body>
+</html>
